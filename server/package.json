@@ -1,0 +1,14 @@
+{
+  "name": "chat_example",
+  "version": "0.0.1",
+  "description": "simple chat example for a video",
+  "dependencies": {
+    "express": "^4.17.1",
+    "socket.io": "^2.3.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ThomasBig/Colorful-Chat"
+  },
+  "license": "MIT"
+}

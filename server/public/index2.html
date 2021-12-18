@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Socket.io</title>
+    <style>
+      * { margin: 0; font-family: Helvetica, Arial; font-size: 16pt; }
+      #messages { list-style-type: none; padding: 0; white-space: pre-wrap; }
+      #messages li { padding: 5px 10px; }
+      #messages li:nth-child(odd) { background: #eeeeee; }
+    </style>
+  </head>
+  <body>
+    <div>
+    <label for="username">Username</label>
+    <input type="text" id="username" value="guest"
+      onfocus="if (this.value=='guest') this.value=''">
+    </div>
+
+    <div>
+    <textarea id="send" rows="4" cols="50"></textarea>
+    <button onclick="sendMessage()">Send</button>
+    </div>
+
+    <ul id="messages"></ul>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="client.js"></script>
+  </body>
+</html>
