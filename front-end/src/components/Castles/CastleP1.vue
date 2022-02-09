@@ -1,4 +1,5 @@
 <template>
+<div class="player1">
   <div class="castle-wrap">
     <div class="castle" :style="{ height: myCastle.castle + '%' }">
     </div>
@@ -18,7 +19,8 @@
     </div>
     <div class="shield" :style="{ opacity: shield(myCastle.shield) }">
     </div>
-    <CastleStat v-bind:CastleStats="myCastle"/>
+  </div>
+  <CastleStat v-bind:CastleStats="myCastle"/>
   </div>
 </template>
 
@@ -58,6 +60,7 @@ export default {
   position: absolute;
   bottom: 0;
   left: 50px;
+  pointer-events: none;
   .castle {
     width: 100%;
     height: 20px;
@@ -67,6 +70,7 @@ export default {
     background-image: url('~@/assets/base1-small.png');
     background-size: cover;
     background-position: bottom;
+    transition: 2s;
   }
   .additional-wrap {
     position: absolute;
@@ -78,6 +82,7 @@ export default {
       height: 100%;
       bottom: 0;
       background-size: contain;
+      transition: 2s;
     }
   }
   .reactors-wrap {
@@ -128,9 +133,31 @@ export default {
 }
 .castle-stats {
     position: absolute;
-    bottom: -110px;
+    top: 0;
+    left: 0;
     color: white;
     text-align: left;
-    padding: 5px 50px;
+    padding: 5px;
+    max-width: 125px;
+    display: flex;
+    flex-direction: column;
+    .stat {
+      background-color: red;
+    }
+}
+.castle-stats .stat {
+    background-color: red;
+}
+
+@media only screen and (max-width: 800px) {
+  .castle-wrap {
+    width: 180px;
+    height: 190px;
+    .shield {
+      width: 271px !important;
+      height: 500px !important;
+      right: 27px !important;
+    }
+  }
 }
 </style>

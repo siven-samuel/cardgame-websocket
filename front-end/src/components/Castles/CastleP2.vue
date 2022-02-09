@@ -1,4 +1,5 @@
 <template>
+  <div class="player2">
   <div class="castle-wrap castle-p2" style="right: 50px">
     <div class="castle" :style="{ height: myCastle.castle + '%' }">
     </div>
@@ -16,8 +17,9 @@
     </div>
     <div class="shieldGen" v-show="myCastle.shieldGen">
     </div>
-    <div class="shield">
+    <div class="shield" :style="{ opacity: shield(myCastle.shield) }">
     </div>
+  </div>
     <CastleStat v-bind:CastleStats="myCastle"/>
   </div>
 </template>
@@ -26,7 +28,7 @@
 import CastleStat from '@/components/Castles/CastleStat.vue';
 
 export default {
-    name: 'CastleP1',
+    name: 'CastleP2',
     data() {
         return {
             items: null,
@@ -38,6 +40,9 @@ export default {
     methods: {
       addons(value) {
         return (value * 10) * 2;
+      },
+      shield(value) {
+        return value / 100;
       },
     },
     computed: {
@@ -54,6 +59,7 @@ export default {
   width: 288px;
   position: absolute;
   bottom: 0;
+  pointer-events: none;
   .castle {
     width: 100%;
     height: 20px;
@@ -65,6 +71,7 @@ export default {
     background-size: cover;
     background-position: bottom;
     transform:scaleX(-1);
+    transition: 2s;
   }
   .additional-wrap {
     position: absolute;
@@ -76,6 +83,7 @@ export default {
       height: 100%;
       bottom: 0;
       background-size: contain;
+      transition: 2s;
     }
   }
   .reactors-wrap {
@@ -130,18 +138,45 @@ export default {
 }
 .castle-stats {
     position: absolute;
-    bottom: -110px;
+    top: 0;
     color: white;
     text-align: left;
-    padding: 5px 50px;
+    padding: 5px;
+    max-width: 125px;
+    display: flex;
+    flex-direction: column;
+    right: 0;
+    .stat {
+      background-color: blue;
+    }
+}
+@media only screen and (max-width: 800px) {
+  .castle-wrap {
+    width: 180px;
+    height: 190px;
+    .shield {
+      width: 271px !important;
+      height: 500px !important;
+      right: 64px;
+    }
+  }
 }
 </style>
 <style lang="less">
 .castle-p2 {
   .castle-stats {
     right: 0;
-    flex-direction: row-reverse;
-    text-align: right;
+    .stat {
+      background-color: blue;
+    }
   }
+}
+.castle-p2 {
+  .stat {
+    background-color: blue !important;
+  }
+}
+.stat {
+    background-color: red;
 }
 </style>

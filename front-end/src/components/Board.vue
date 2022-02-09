@@ -1,14 +1,12 @@
 <template>
   <div class="main">
-    <button @click="testSocketSend()">Test socekt</button>
     <div class="sky">
          <CastleP1/>
          <CastleP2/>
-         <Hand/>
-         <PackP1/>
-         <PackP2/>
+         <Pack v-show="false"/>
     </div>
     <div class="ground">
+      <Hand :gameType="gameType"/>
     </div>
   </div>
 </template>
@@ -17,16 +15,12 @@
 import CastleP1 from '@/components/Castles/CastleP1.vue';
 import CastleP2 from '@/components/Castles/CastleP2.vue';
 import Hand from '@/components/Cards/Hand.vue';
-import PackP1 from '@/components/Cards/PackP1.vue';
-import PackP2 from '@/components/Cards/PackP2.vue';
-import io from 'socket.io-client';
-
-const socket = io('http://localhost:3300');
+import Pack from '@/components/Cards/PackP1.vue';
 
 export default {
   name: 'Board',
   props: {
-    message: String,
+    gameType: String,
   },
   computed: {
     Player() {
@@ -37,8 +31,7 @@ export default {
     CastleP1,
     CastleP2,
     Hand,
-    PackP1,
-    PackP2,
+    Pack,
   },
   data() {
     return {
@@ -53,12 +46,8 @@ export default {
     testSocketSend() {
       alert('chujuu');
       /* eslint-disable */
-      socket.emit('sendMessage', { 'login': this.username, 'msg': this.message });
       /* eslint-enable */
     },
-  },
-  created() {
-    socket.on('receiveMessage', (obj) => this.testSocket(obj));
   },
 };
 </script>
@@ -72,13 +61,13 @@ export default {
   height: 100vh;
   .sky {
     background: #e2d09c;
-    height: 80%;
+    height: 60%;
     width: 100%;
     position: relative;
   }
   .ground {
     background: #a87b4d;
-    height: 20%;
+    height: 40%;
     z-index: 5;
   }
 }

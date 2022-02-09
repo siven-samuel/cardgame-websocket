@@ -2,36 +2,36 @@ import { createStore } from 'vuex';
 
 export default createStore({
   state: {
-    player: 'castleP1',
-    playerEnemy: 'castleP2',
-    castleP1: {
-      gold: 50,
+    player: 'P1',
+    playerEnemy: 'P2',
+    P1: {
+      weapons: 20,
       energy: 20,
-      brick: 20,
+      minerals: 20,
       castle: 30,
-      factories: 3,
-      reactors: 2,
-      miners: 3,
-      shield: 10,
-      shieldGen: true,
-    },
-    castleP2: {
-      gold: 20,
-      energy: 20,
-      brick: 20,
-      castle: 50,
       factories: 1,
       reactors: 1,
       miners: 1,
-      shield: 0,
+      shield: 20,
+      shieldGen: true,
+    },
+    P2: {
+      weapons: 20,
+      energy: 20,
+      minerals: 20,
+      castle: 30,
+      factories: 1,
+      reactors: 1,
+      miners: 1,
+      shield: 20,
       shieldGen: true,
     },
     pack1: [],
     pack2: [],
   },
   getters: {
-    myCastle: (state) => state.castleP1,
-    enemyCastle: (state) => state.castleP2,
+    myCastle: (state) => state.P1,
+    enemyCastle: (state) => state.P2,
     isPlayer: (state) => state.player,
     packp1: (state) => state.pack1,
     packp2: (state) => state.pack2,
@@ -39,9 +39,9 @@ export default createStore({
   mutations: {
     increment(state, card) {
       // add resources
-      state[state.player].brick += state[state.player].factories;
+      state[state.player].minerals += state[state.player].factories;
       state[state.player].energy += state[state.player].reactors;
-      state[state.player].gold += state[state.player].miners;
+      state[state.player].weapons += state[state.player].miners;
       if (!card) {
         return;
       }
@@ -56,7 +56,7 @@ export default createStore({
             }
             state[state.player][card.currency] -= card.cost;
             if (state[state.player][card.currency] <= 0) {
-              state[state.player][card.currency] = 0;
+              state[state.player][card.currency] = 1;
             }
         break;
         case 'remove':
@@ -64,18 +64,18 @@ export default createStore({
             let target = [card.target[i]];
             // console.log(state[state.playerEnemy].shield);
             // console.log([card.target[i]][0]);
-            if (state[state.playerEnemy].shield === 0 && [card.target[i]][0] === 'shield') {
+            if (state[state.playerEnemy].shield <= 1 && [card.target[i]][0] === 'shield') {
               console.log('huraaaa');
               target = 'castle';
             }
             state[state.playerEnemy][target] -= card.effectCount;
             if (state[state.playerEnemy][card.target[i]] <= 0) {
-              state[state.playerEnemy][card.target[i]] = 0;
+              state[state.playerEnemy][card.target[i]] = 1;
             }
           }
           state[state.player][card.currency] -= card.cost;
           if (state[state.player][card.currency] <= 0) {
-            state[state.player][card.currency] = 0;
+            state[state.player][card.currency] = 1;
           }
         break;
         case 'thief':
@@ -83,13 +83,15 @@ export default createStore({
             state[state.playerEnemy][card.target[i]] -= card.effectCount;
             state[state.player][card.target[i]] += card.effectCount;
             if (state[state.playerEnemy][card.target[i]] <= 0) {
-              state[state.playerEnemy][card.target[i]] = 0;
+              state[state.playerEnemy][card.target[i]] = 1;
             }
           }
           state[state.player][card.currency] -= card.cost;
           if (state[state.player][card.currency] <= 0) {
-            state[state.player][card.currency] = 0;
+            state[state.player][card.currency] = 1;
           }
+        break;
+        case 'skip':
         break;
         default:
       }
