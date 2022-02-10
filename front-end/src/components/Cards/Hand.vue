@@ -58,8 +58,6 @@ export default {
             socket.on('receiveMessage', (obj) => this.socketTurn(obj));
 
             socket.on('allMessages', (objs) => {
-                // const myJSON = JSON.stringify(objs);
-                // alert(objs[0].login);
                 if (objs.length >= 1 && objs.length < 3 && objs[0].login === 'start') {
                     this.MyPlayer = 'P2';
                     /* eslint-disable */

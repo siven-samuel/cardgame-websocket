@@ -39,16 +39,6 @@ export default {
         msg: 'testmsg1',
     };
   },
-  methods: {
-    testSocket(obj) {
-      alert(obj.msg);
-    },
-    testSocketSend() {
-      alert('chujuu');
-      /* eslint-disable */
-      /* eslint-enable */
-    },
-  },
 };
 </script>
 
